@@ -3,221 +3,560 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bali Paradise - Travel Destination</title>
+    <title>Bali Paradise | Luxury Travel Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset and base styles */
+        :root {
+            --primary: #e55039;
+            --primary-dark: #eb2f06;
+            --secondary: #f8c291;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow: 0 15px 30px rgba(0,0,0,0.1);
+            --glass: rgba(255,255,255,0.1);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        /* Header styles */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://images.unsplash.com/photo-1518544866335-95a2bf0ff695');
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+            background-image: url('https://images.unsplash.com/photo-1518544866335-95a2bf0ff695');
             background-size: cover;
             background-position: center;
-            height: 100vh;
-            color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 20px;
+            background-attachment: fixed;
+            position: relative;
         }
         
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: -1;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        /* Main Content Container */
+        .main-container {
+            background: rgba(255,255,255,0.95);
+            box-shadow: var(--shadow);
+            margin: 100px auto;
+            max-width: 1400px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        /* Hero Section with Full-width Background */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8') center/cover no-repeat;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        /* Professional Navigation */
         nav {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
+            width: 100%;
+            padding: 25px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3);
+        }
+        
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            padding: 15px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
         }
         
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 20px;
-            transition: color 0.3s;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
         
-        .nav-links a:hover {
-            color: #f8c291;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
         }
         
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: fadeIn 2s;
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            animation: fadeIn 2.5s;
+        .nav-links a.active {
+            color: var(--secondary);
         }
         
+        /* Professional CTA Button */
         .cta-button {
             display: inline-block;
-            background-color: #e55039;
+            background: var(--primary);
             color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
+            padding: 16px 45px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            animation: fadeIn 3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
         }
         
         .cta-button:hover {
-            background-color: #eb2f06;
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
         
-        /* Main content styles */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 100px 5%;
+            background: white;
+        }
+        
+        .section.dark {
+            background: #f5f5f5;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
-            font-size: 2.5rem;
-            color: #333;
+            margin-bottom: 70px;
         }
         
-        .highlights {
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: #666;
+        }
+        
+        /* Professional Card Design */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .card-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        /* Grid Layout */
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-bottom: 50px;
         }
         
-        .highlight-card {
-            background-color: white;
-            border-radius: 10px;
+        /* Testimonials with Professional Design */
+        .testimonials {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
         }
         
-        .highlight-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .highlight-img {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-        }
-        
-        .highlight-content {
-            padding: 20px;
-        }
-        
-        .highlight-content h3 {
-            margin-bottom: 10px;
-            color: #e55039;
-        }
-        
-        /* Gallery section */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-        
-        .gallery-item {
-            height: 250px;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .gallery-item img {
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
         }
         
-        .gallery-item img:hover {
-            transform: scale(1.1);
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            background-color: #f8c291;
-            padding: 50px 20px;
-            text-align: center;
-        }
-        
-        .testimonial-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .testimonial {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
         .testimonial-text {
+            font-size: 1.1rem;
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            line-height: 1.8;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: rgba(255,255,255,0.2);
+            position: absolute;
+        }
+        
+        .testimonial-text::before {
+            top: -20px;
+            left: -15px;
+        }
+        
+        .testimonial-text::after {
+            bottom: -40px;
+            right: -15px;
         }
         
         .testimonial-author {
-            font-weight: bold;
-            color: #e55039;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .footer-links {
             display: flex;
-            justify-content: center;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid var(--secondary);
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Professional Form Design */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f9f9f9;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(229, 80, 57, 0.2);
+            background: white;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer with Professional Design */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
         }
         
         .footer-links a {
-            color: white;
-            margin: 0 15px;
+            color: #ddd;
             text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
         }
         
         .footer-links a:hover {
-            text-decoration: underline;
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .newsletter-form input::placeholder {
+            color: #ccc;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
         }
         
         /* Animations */
@@ -226,153 +565,411 @@
             to { opacity: 1; }
         }
         
-        /* Responsive adjustments */
+        @keyframes fadeUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section {
+                padding: 80px 5%;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
             
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
-            nav {
-                flex-direction: column;
-                padding: 10px;
+            .section-title h2 {
+                font-size: 2.2rem;
             }
             
             .nav-links {
-                margin-top: 10px;
+                display: none;
             }
             
-            .nav-links a {
-                margin: 0 10px;
+            .mobile-menu-btn {
+                display: block;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 5%;
+            }
+            
+            .card {
+                max-width: 350px;
+                margin: 0 auto;
             }
         }
     </style>
 </head>
 <body>
-    <header class="hero">
-        <nav>
-            <div class="logo">Bali Paradise</div>
-            <div class="nav-links">
-                <a href="#highlights">Highlights</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </nav>
-        
-        <h1>Discover the Magic of Bali</h1>
-        <p>Experience the perfect blend of culture, nature, and relaxation in Indonesia's most famous island paradise.</p>
-        <a href="#contact" class="cta-button">Plan Your Trip</a>
-    </header>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">Bali<span>Paradise</span></a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#highlights" class="active">Highlights</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#pricing">Packages</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
     
-    <main>
-        <section id="highlights" class="container">
-            <h2 class="section-title">Bali Highlights</h2>
-            <div class="highlights">
-                <div class="highlight-card">
-                    <img src="https://images.unsplash.com/photo-1520583457224-aee11bad5112" alt="Ubud Rice Terraces" class="highlight-img">
-                    <div class="highlight-content">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover <span>Bali's Magic</span></h1>
+            <p>Immerse yourself in the island of gods, where pristine beaches meet lush jungles and ancient temples whisper stories of the past.</p>
+            <a href="#contact" class="cta-button">Book Your Journey</a>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Highlights Section -->
+        <section id="highlights" class="section">
+            <div class="section-title">
+                <h2>Bali Highlights</h2>
+                <p>Explore the most breathtaking experiences Bali has to offer</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1520583457224-aee11bad5112" alt="Ubud Rice Terraces" class="card-img">
+                    <div class="card-content">
                         <h3>Ubud Rice Terraces</h3>
                         <p>Walk through the breathtaking Tegallalang Rice Terraces, a stunning example of Bali's subak irrigation system and a UNESCO World Heritage Site.</p>
+                        <a href="#" class="cta-button" style="display: inline-block; padding: 12px 30px;">Explore</a>
                     </div>
                 </div>
                 
-                <div class="highlight-card">
-                    <img src="https://images.unsplash.com/photo-1564429096559-9a4b439bf292" alt="Uluwatu Temple" class="highlight-img">
-                    <div class="highlight-content">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1564429096559-9a4b439bf292" alt="Uluwatu Temple" class="card-img">
+                    <div class="card-content">
                         <h3>Uluwatu Temple</h3>
                         <p>Perched on a steep cliff 70 meters above sea level, this sea temple offers spectacular sunset views and traditional Kecak dance performances.</p>
+                        <a href="#" class="cta-button" style="display: inline-block; padding: 12px 30px;">Explore</a>
                     </div>
                 </div>
                 
-                <div class="highlight-card">
-                    <img src="https://images.unsplash.com/photo-1560109947-543149eceb16" alt="Nusa Penida" class="highlight-img">
-                    <div class="highlight-content">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1560109947-543149eceb16" alt="Nusa Penida" class="card-img">
+                    <div class="card-content">
                         <h3>Nusa Penida</h3>
                         <p>Take a boat trip to this nearby island paradise featuring dramatic cliffs, crystal clear waters, and some of Bali's best snorkeling spots.</p>
+                        <a href="#" class="cta-button" style="display: inline-block; padding: 12px 30px;">Explore</a>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section id="gallery" class="container">
-            <h2 class="section-title">Bali Gallery</h2>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1518544866335-95a2bf0ff695" alt="Bali Beach">
+        <!-- Gallery Section -->
+        <section id="gallery" class="section dark">
+            <div class="section-title">
+                <h2>Bali Gallery</h2>
+                <p>Visual journey through Bali's most stunning locations</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1518544866335-95a2bf0ff695" alt="Bali Beach" class="card-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a" alt="Bali Temple">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a" alt="Bali Temple" class="card-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" alt="Bali Waterfall">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" alt="Bali Waterfall" class="card-img">
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6" alt="Bali Jungle">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6" alt="Bali Jungle" class="card-img">
                 </div>
             </div>
         </section>
         
-        <section id="testimonials" class="testimonials">
-            <div class="testimonial-container">
-                <h2 class="section-title">Traveler Testimonials</h2>
-                
-                <div class="testimonial">
-                    <p class="testimonial-text">"Bali exceeded all my expectations. The culture, the people, the food - everything was absolutely magical. I can't wait to go back!"</p>
-                    <p class="testimonial-author">- Sarah Johnson, Australia</p>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section testimonials">
+            <div class="section-title">
+                <h2>Traveler Stories</h2>
+                <p>What our guests say about their Bali experience</p>
+            </div>
+            
+            <div class="grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Bali exceeded all my expectations. The culture, the people, the food - everything was absolutely magical. I can't wait to go back!</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-img">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Australia • April 2023</p>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="testimonial">
-                    <p class="testimonial-text">"The most relaxing vacation I've ever had. From the spa treatments to the stunning beaches, Bali is truly paradise on earth."</p>
-                    <p class="testimonial-author">- Michael Chen, Canada</p>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The most relaxing vacation I've ever had. From the spa treatments to the stunning beaches, Bali is truly paradise on earth.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-img">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Canada • March 2023</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
         
-        <section id="contact" class="container">
-            <h2 class="section-title">Plan Your Trip</h2>
-            <form style="max-width: 600px; margin: 0 auto;">
-                <div style="margin-bottom: 20px;">
-                    <label for="name" style="display: block; margin-bottom: 5px;">Name</label>
-                    <input type="text" id="name" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+        <!-- Pricing Section -->
+        <section id="pricing" class="section">
+            <div class="section-title">
+                <h2>Tour Packages</h2>
+                <p>Tailored experiences for every type of traveler</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Essential Bali</h3>
+                        <div class="price">$899 <span>/ person</span></div>
+                        <ul style="margin: 20px 0;">
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 7 Days / 6 Nights</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 4-Star Accommodation</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Daily Breakfast</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 3 Guided Tours</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Airport Transfers</li>
+                        </ul>
+                        <a href="#contact" class="cta-button" style="display: block; text-align: center;">Book Now</a>
+                    </div>
                 </div>
                 
-                <div style="margin-bottom: 20px;">
-                    <label for="email" style="display: block; margin-bottom: 5px;">Email</label>
-                    <input type="email" id="email" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                <div class="card" style="border: 2px solid var(--primary);">
+                    <div style="position: absolute; top: 0; right: 20px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 0 0 5px 5px;">Popular</div>
+                    <div class="card-content">
+                        <h3>Bali Explorer</h3>
+                        <div class="price">$1299 <span>/ person</span></div>
+                        <ul style="margin: 20px 0;">
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 10 Days / 9 Nights</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 5-Star Accommodation</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Half Board Meals</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 6 Guided Tours</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Spa Treatment</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Private Transfers</li>
+                        </ul>
+                        <a href="#contact" class="cta-button" style="display: block; text-align: center;">Book Now</a>
+                    </div>
                 </div>
                 
-                <div style="margin-bottom: 20px;">
-                    <label for="dates" style="display: block; margin-bottom: 5px;">Travel Dates</label>
-                    <input type="text" id="dates" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Luxury Retreat</h3>
+                        <div class="price">$2499 <span>/ person</span></div>
+                        <ul style="margin: 20px 0;">
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> 14 Days / 13 Nights</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Luxury Villas</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> All Meals Included</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Private Guide</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Daily Spa Treatments</li>
+                            <li><i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i> Helicopter Tour</li>
+                        </ul>
+                        <a href="#contact" class="cta-button" style="display: block; text-align: center;">Book Now</a>
+                    </div>
                 </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <label for="interests" style="display: block; margin-bottom: 5px;">Interests</label>
-                    <select id="interests" multiple style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
-                        <option value="beach">Beach Vacation</option>
-                        <option value="culture">Cultural Experience</option>
-                        <option value="adventure">Adventure Activities</option>
-                        <option value="wellness">Wellness Retreat</option>
-                    </select>
-                </div>
-                
-                <button type="submit" style="background-color: #e55039; color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: background-color 0.3s;">Submit Inquiry</button>
-            </form>
+            </div>
         </section>
-    </main>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="section dark">
+            <div class="section-title">
+                <h2>Plan Your Trip</h2>
+                <p>Get in touch with our travel experts</p>
+            </div>
+            
+            <div class="form-container">
+                <form>
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="package" class="form-label">Package Interest</label>
+                        <select id="package" class="form-control" required>
+                            <option value="" disabled selected>Select a package</option>
+                            <option value="essential">Essential Bali ($899)</option>
+                            <option value="explorer">Bali Explorer ($1299)</option>
+                            <option value="luxury">Luxury Retreat ($2499)</option>
+                            <option value="custom">Custom Package</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Special Requests</label>
+                        <textarea id="message" class="form-control"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button" style="width: 100%;">Submit Request</button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Bali<span>Paradise</span></div>
+                    <p>Creating unforgettable travel experiences in Bali since 2010. Our team of local experts ensures you discover the authentic beauty of the Island of Gods.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#highlights">Highlights</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#pricing">Packages</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Booking Conditions</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for travel tips and special offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="cta-button" style="width: 100%; padding: 12px;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Bali Paradise Travel. All rights reserved.
+            </div>
+        </footer>
+    </div>
     
-    <footer>
-        <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Contact Us</a>
-        </div>
-        <p>&copy; 2023 Bali Paradise Travel. All rights reserved.</p>
-    </footer>
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Card hover effect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const { width, height } = card.getBoundingClientRect();
+                const xRotation = 5 * ((y - height / 2) / height);
+                const yRotation = -5 * ((x - width / 2) / width);
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>
