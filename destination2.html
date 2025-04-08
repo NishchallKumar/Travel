@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali Paradise | Premium 3D Travel Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #e55039;
+            --primary-dark: #eb2f06;
+            --secondary: #f8c291;
+            --dark: #2d3436;
+            --light: #f5f5f5;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+        
+        /* 3D Scene Container */
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        /* Preloader with 3D Animation */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+        
+        .preloader.fade-out {
+            opacity: 0;
+        }
+        
+        .loader-3d {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 8s linear infinite;
+        }
+        
+        .loader-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(229, 80, 57, 0.7);
+            border: 2px solid var(--secondary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .loader-face:nth-child(1) { transform: rotateY(0deg) translateZ(50px); }
+        .loader-face:nth-child(2) { transform: rotateY(90deg) translateZ(50px); }
+        .loader-face:nth-child(3) { transform: rotateY(180deg) translateZ(50px); }
+        .loader-face:nth-child(4) { transform: rotateY(-90deg) translateZ(50px); }
+        .loader-face:nth-child(5) { transform: rotateX(90deg) translateZ(50px); }
+        .loader-face:nth-child(6) { transform: rotateX(-90deg) translateZ(50px); }
+        
+        .loading-text {
+            margin-top: 30px;
+            color: white;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        /* 3D Parallax Header */
+        .parallax-header {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518544866335-95a2bf0ff695') center/cover no-repeat;
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+        }
+        
+        .parallax-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 15%;
+            color: white;
+            transform-style: preserve-3d;
+        }
+        
+        /* Modern Glass Navigation with 3D Effect */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            padding: 15px 5%;
+            transform: translateY(-10px) rotateX(5deg);
+        }
+        
+        /* 3D Card Hover Effects */
+        .highlight-card {
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 20px 30px 50px rgba(0,0,0,0.3);
+        }
+        
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(229, 80, 57, 0.1), transparent);
+            transform: translateZ(30px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .highlight-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* 3D Floating Elements */
+        .floating-element {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        
+        /* 3D Gallery with Depth Effect */
+        .gallery-item {
+            transform-style: preserve-3d;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05) rotateY(10deg) rotateX(5deg);
+        }
+        
+        /* 3D Pricing Cards */
+        .pricing-card {
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            border-radius: 20px;
+            opacity: 0;
+            transform: translateZ(-20px);
+            transition: var(--transition);
+        }
+        
+        .pricing-card:hover::before {
+            opacity: 0.3;
+        }
+        
+        /* 3D Contact Form */
+        .contact-form {
+            transform-style: preserve-3d;
+            transition: var(--transition);
+        }
+        
+        .contact-form:hover {
+            transform: perspective(1000px) rotateY(5deg) rotateX(2deg);
+        }
+        
+        /* Animations */
+        @keyframes rotate3d {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateZ(0); }
+            50% { transform: translateY(-20px) translateZ(10px); }
+        }
+        
+        @keyframes rotateIn {
+            from { transform: rotateY(90deg) scale(0.8); opacity: 0; }
+            to { transform: rotateY(0) scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Preloader -->
+    <div class="preloader">
+        <div class="loader-3d">
+            <div class="loader-face"><i class="fas fa-umbrella-beach"></i></div>
+            <div class="loader-face"><i class="fas fa-water"></i></div>
+            <div class="loader-face"><i class="fas fa-mountain"></i></div>
+            <div class="loader-face"><i class="fas fa-sun"></i></div>
+            <div class="loader-face"><i class="fas fa-tree"></i></div>
+            <div class="loader-face"><i class="fas fa-map-marked-alt"></i></div>
+        </div>
+        <div class="loading-text">LOADING BALI PARADISE...</div>
+    </div>
+    
+    <!-- 3D Scene Container -->
+    <div id="scene-container"></div>
+    
+    <!-- 3D Parallax Header -->
+    <header class="parallax-header">
+        <div class="parallax-bg"></div>
+        <div class="parallax-overlay"></div>
+        
+        <!-- Navigation -->
+        <nav>
+            <a href="index.html" class="logo">Bali<span>Paradise</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#highlights" class="active">Highlights</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#pricing">Packages</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+        
+        <!-- Hero Content with 3D Text -->
+        <div class="parallax-content">
+            <h1 data-depth="0.6">Discover <span class="typed-text">Bali's Magic</span></h1>
+            <p data-depth="0.4">Immerse yourself in the island of gods, where pristine beaches meet lush jungles and ancient temples whisper stories of the past.</p>
+            <a href="#contact" class="cta-button" data-depth="0.2">Book Your Journey</a>
+        </div>
+        
+        <!-- Floating 3D Elements -->
+        <div class="floating-element" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 70%; left: 80%; animation-delay: 1s;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; top: 40%; left: 85%; animation-delay: 2s;"></div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="scroll-down" onclick="scrollToSection('highlights')">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Highlights Section with 3D Cards -->
+        <section id="highlights" class="section">
+            <div class="section-title">
+                <h2>Bali Highlights</h2>
+            </div>
+            
+            <div class="highlights">
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1520583457224-aee11bad5112" alt="Ubud Rice Terraces" class="highlight-img">
+                    <div class="highlight-content">
+                        <h3>Ubud Rice Terraces</h3>
+                        <p>Walk through the breathtaking Tegallalang Rice Terraces, a stunning example of Bali's subak irrigation system and a UNESCO World Heritage Site.</p>
+                        <a href="#" class="read-more">Explore More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1564429096559-9a4b439bf292" alt="Uluwatu Temple" class="highlight-img">
+                    <div class="highlight-content">
+                        <h3>Uluwatu Temple</h3>
+                        <p>Perched on a steep cliff 70 meters above sea level, this sea temple offers spectacular sunset views and traditional Kecak dance performances.</p>
+                        <a href="#" class="read-more">Explore More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="highlight-card">
+                    <img src="https://images.unsplash.com/photo-1560109947-543149eceb16" alt="Nusa Penida" class="highlight-img">
+                    <div class="highlight-content">
+                        <h3>Nusa Penida</h3>
+                        <p>Take a boat trip to this nearby island paradise featuring dramatic cliffs, crystal clear waters, and some of Bali's best snorkeling spots.</p>
+                        <a href="#" class="read-more">Explore More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3D Interactive Gallery -->
+        <section id="gallery" class="section">
+            <div class="section-title">
+                <h2>3D Gallery Experience</h2>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518544866335-95a2bf0ff695" alt="Bali Beach">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a" alt="Bali Temple">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" alt="Bali Waterfall">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6" alt="Bali Jungle">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3D Pricing Cards -->
+        <section id="pricing" class="section">
+            <div class="section-title">
+                <h2>3D Tour Packages</h2>
+            </div>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Essential Bali</h3>
+                        <div class="pricing-price">$899 <span>/ person</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 7 Days / 6 Nights</li>
+                        <li><i class="fas fa-check"></i> 4-Star Accommodation</li>
+                        <li><i class="fas fa-check"></i> Daily Breakfast</li>
+                        <li><i class="fas fa-check"></i> 3 Guided Tours</li>
+                        <li><i class="fas fa-check"></i> Airport Transfers</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="display: block; text-align: center;">Book Now</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Popular</div>
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Bali Explorer</h3>
+                        <div class="pricing-price">$1299 <span>/ person</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 10 Days / 9 Nights</li>
+                        <li><i class="fas fa-check"></i> 5-Star Accommodation</li>
+                        <li><i class="fas fa-check"></i> Half Board Meals</li>
+                        <li><i class="fas fa-check"></i> 6 Guided Tours</li>
+                        <li><i class="fas fa-check"></i> Spa Treatment</li>
+                        <li><i class="fas fa-check"></i> Private Transfers</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="display: block; text-align: center;">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Luxury Retreat</h3>
+                        <div class="pricing-price">$2499 <span>/ person</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 14 Days / 13 Nights</li>
+                        <li><i class="fas fa-check"></i> Luxury Villas</li>
+                        <li><i class="fas fa-check"></i> All Meals Included</li>
+                        <li><i class="fas fa-check"></i> Private Guide</li>
+                        <li><i class="fas fa-check"></i> Daily Spa Treatments</li>
+                        <li><i class="fas fa-check"></i> Helicopter Tour</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="display: block; text-align: center;">Book Now</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3D Interactive Map -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Interactive 3D Map</h2>
+            </div>
+            
+            <div class="map-container" id="3d-map">
+                <!-- Three.js will render the 3D map here -->
+                <canvas id="map-canvas"></canvas>
+            </div>
+        </section>
+        
+        <!-- 3D Contact Form -->
+        <section id="contact" class="section">
+            <div class="section-title">
+                <h2>Plan Your 3D Journey</h2>
+            </div>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control" placeholder=" " required>
+                    <label for="name" class="form-label">Full Name</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" placeholder=" " required>
+                    <label for="email" class="form-label">Email Address</label>
+                </div>
+                
+                <div class="form-group">
+                    <select id="package" class="form-control" required>
+                        <option value="" disabled selected></option>
+                        <option value="essential">Essential Bali ($899)</option>
+                        <option value="explorer">Bali Explorer ($1299)</option>
+                        <option value="luxury">Luxury Retreat ($2499)</option>
+                        <option value="custom">Custom Package</option>
+                    </select>
+                    <label for="package" class="form-label">Select Package</label>
+                </div>
+                
+                <button type="submit" class="cta-button">Submit Request</button>
+            </form>
+        </section>
+    </main>
+    
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.preloader').classList.add('fade-out');
+                setTimeout(function() {
+                    document.querySelector('.preloader').style.display = 'none';
+                }, 1000);
+            }, 2000);
+        });
+        
+        // 3D Scene Initialization
+        function init3DScene() {
+            const container = document.getElementById('scene-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+            
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            // Add floating islands
+            const geometry = new THREE.SphereGeometry(1, 32, 32);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0x3a7bd5,
+                transparent: true,
+                opacity: 0.7,
+                shininess: 100
+            });
+            
+            const islands = [];
+            for (let i = 0; i < 5; i++) {
+                const island = new THREE.Mesh(geometry, material);
+                island.position.x = (Math.random() - 0.5) * 10;
+                island.position.y = (Math.random() - 0.5) * 5;
+                island.position.z = (Math.random() - 0.5) * 10 - 20;
+                island.scale.setScalar(0.5 + Math.random() * 0.5);
+                scene.add(island);
+                islands.push(island);
+            }
+            
+            // Camera position
+            camera.position.z = 5;
+            
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Rotate islands
+                islands.forEach(island => {
+                    island.rotation.x += 0.005;
+                    island.rotation.y += 0.01;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Initialize 3D scene after page loads
+        window.addEventListener('load', init3DScene);
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        document.querySelectorAll('.highlight-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                duration: 1,
+                opacity: 0,
+                y: 50,
+                rotationY: -20,
+                ease: "power3.out",
+                delay: i * 0.1
+            });
+        });
+        
+        // 3D Map Initialization
+        function init3DMap() {
+            const canvas = document.getElementById('map-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            // Create Bali island
+            const geometry = new THREE.SphereGeometry(2, 32, 32);
+            const material = new THREE.MeshPhongMaterial({ 
+                color: 0x3a7bd5,
+                wireframe: false,
+                flatShading: true
+            });
+            const bali = new THREE.Mesh(geometry, material);
+            scene.add(bali);
+            
+            // Add terrain details
+            const terrainGeometry = new THREE.SphereGeometry(2.01, 64, 64);
+            const terrainMaterial = new THREE.MeshPhongMaterial({
+                color: 0x4CAF50,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const terrain = new THREE.Mesh(terrainGeometry, terrainMaterial);
+            scene.add(terrain);
+            
+            // Camera position
+            camera.position.z = 5;
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                bali.rotation.y += 0.005;
+                terrain.rotation.y += 0.005;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            });
+        }
+        
+        // Initialize 3D map when section is in view
+        ScrollTrigger.create({
+            trigger: "#3d-map",
+            start: "top bottom",
+            onEnter: init3DMap,
+            once: true
+        });
+        
+        // 3D Card hover effects
+        document.querySelectorAll('.highlight-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const { width, height } = card.getBoundingClientRect();
+                const xRotation = 20 * ((y - height / 2) / height);
+                const yRotation = -20 * ((x - width / 2) / width);
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) translateY(-20px)`;
+                card.style.boxShadow = `${-yRotation}px ${xRotation}px 30px rgba(0,0,0,0.3)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+            });
+        });
+    </script>
+</body>
+</html>
