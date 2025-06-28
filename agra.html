@@ -16,6 +16,9 @@
             --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             --shadow: 0 15px 30px rgba(0,0,0,0.1);
             --glass: rgba(255,255,255,0.1);
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --success: #27ae60;
         }
         
         * {
@@ -173,6 +176,83 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
         
+        /* Weather Section */
+        .weather-section {
+            padding: 50px 5%;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .weather-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .current-weather {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+        
+        .temp {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .weather-condition {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .weather-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .air-quality {
+            background: rgba(231, 76, 60, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .forecast {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .forecast-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
         /* Section Styling */
         .section {
             padding: 100px 5%;
@@ -252,6 +332,74 @@
         .card-content p {
             margin-bottom: 20px;
             color: #666;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+        
+        .price span {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: normal;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        
+        .rating {
+            color: var(--warning);
+            margin: 10px 0;
+        }
+        
+        /* Food Card */
+        .food-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .food-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .food-content {
+            padding: 25px;
+            flex: 1;
+        }
+        
+        .food-content h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .restaurant {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin: 10px 0;
         }
         
         /* Grid Layout */
@@ -531,6 +679,15 @@
             .nav-links {
                 gap: 20px;
             }
+            
+            .food-card {
+                flex-direction: column;
+            }
+            
+            .food-img {
+                width: 100%;
+                height: 200px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -588,6 +745,10 @@
                 max-width: 350px;
                 margin: 0 auto;
             }
+            
+            .weather-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -613,6 +774,68 @@
             <h1>Discover <span>Agra</span></h1>
             <p>Home to the iconic Taj Mahal and a treasure trove of Mughal architecture</p>
             <a href="#attractions" class="cta-button">Explore Agra</a>
+        </div>
+    </section>
+    
+    <!-- Weather Section -->
+    <section class="weather-section">
+        <h2>Current Weather in Agra</h2>
+        <div class="weather-container">
+            <div class="current-weather">
+                <div class="weather-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <div class="temp">34°C</div>
+                <div class="weather-condition">Cloudy</div>
+                <div class="real-feel">RealFeel® 40°</div>
+                
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <p>Wind: SSW 13 km/h</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <p>Humidity: 60%</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-sun"></i>
+                        <p>UV Index: 2 Low</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-eye"></i>
+                        <p>Visibility: 10 km</p>
+                    </div>
+                </div>
+                
+                <div class="air-quality">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Air Quality: Poor</h3>
+                    <p>Unhealthy for sensitive groups. Reduce time outside if experiencing breathing difficulties.</p>
+                </div>
+            </div>
+            
+            <div class="current-weather">
+                <h3>Today's Forecast</h3>
+                <div class="forecast">
+                    <div class="forecast-item">
+                        <h4>Day</h4>
+                        <div class="temp">35°C</div>
+                        <p>Humid with some sun</p>
+                        <p>Rain possible</p>
+                    </div>
+                    <div class="forecast-item">
+                        <h4>Night</h4>
+                        <div class="temp">27°C</div>
+                        <p>Partly cloudy</p>
+                        <p>Uncomfortably humid</p>
+                    </div>
+                </div>
+                
+                <div class="travel-tip" style="margin-top: 30px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <h3><i class="fas fa-umbrella"></i> Travel Advisory</h3>
+                    <p>Carry an umbrella as thunderstorms are possible late Sunday through Monday :cite[1]:cite[5].</p>
+                </div>
+            </div>
         </div>
     </section>
     
@@ -737,6 +960,132 @@
         </div>
     </section>
     
+    <!-- Accommodation Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Accommodations</h2>
+                <p>Best hotels near Taj Mahal with competitive rates</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Radisson Hotel Agra" class="card-img">
+                    <div class="card-content">
+                        <h3>Radisson Hotel Agra</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            2.9 km from Taj Mahal
+                        </div>
+                        <p>Offers cultural shows, pottery making and 50% off on spa services. Features spa, swimming pool & gym.</p>
+                        <div class="price">$46<span> $65</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (7,975 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="ITC Mughal" class="card-img">
+                    <div class="card-content">
+                        <h3>ITC Mughal</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            1.6 km from Taj Mahal
+                        </div>
+                        <p>Luxury hotel featuring 4 dining options and a gorgeous outdoor pool. Part of Marriott's Luxury Collection.</p>
+                        <div class="price">$110<span> $150</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (4,628 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hotel Taj Resort" class="card-img">
+                    <div class="card-content">
+                        <h3>Hotel Taj Resort</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            500 m from Taj Mahal
+                        </div>
+                        <p>Ridiculously close to the Taj Mahal with large outdoor swimming pool, restaurant and sauna.</p>
+                        <div class="price">$40<span> $60</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            (2,638 Ratings)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Food Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Agra's Famous Food</h2>
+                <p>Delicious culinary experiences you must try</p>
+            </div>
+            
+            <div class="food-list">
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Petha" class="food-img">
+                    <div class="food-content">
+                        <h3>Petha</h3>
+                        <p>A translucent soft candy made from ash gourd, said to have originated in the kitchens of Mughal emperor Shah Jahan :cite[3]:cite[7].</p>
+                        <span class="restaurant">Bhagat Halwai & Panchhi Petha</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Multiple locations across Agra
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Mughlai Cuisine" class="food-img">
+                    <div class="food-content">
+                        <h3>Mughlai Cuisine</h3>
+                        <p>Agra's biryani is more like a fragrant pulao where meat and rice are cooked separately then layered and steamed :cite[7].</p>
+                        <span class="restaurant">The Mughal Darbar</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            18/160A Purani Mandi, Opp. Kailash Movies, Tajganj
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1643275595391-9c8f4b9f0f3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Street Food" class="food-img">
+                    <div class="food-content">
+                        <h3>Street Food</h3>
+                        <p>Don't miss Agra's famous chaats in Sadar Bazaar's Chaat Gali - a narrow alley dedicated to street food :cite[7].</p>
+                        <span class="restaurant">Panditji Chat Bhandar</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Chaat Gali, Sadar Bazaar
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Travel Tips -->
     <section class="section">
         <div class="container">
@@ -763,7 +1112,7 @@
                 
                 <div class="tip-item">
                     <h3>Local Cuisine</h3>
-                    <p>Don't miss Agra's famous petha (a sweet made from ash gourd), Mughlai cuisine, and bedai with aloo sabzi (a popular breakfast dish).</p>
+                    <p>Don't miss Agra's famous petha (a sweet made from ash gourd), Mughlai cuisine, and bedai with aloo sabzi (a popular breakfast dish) :cite[3]:cite[7].</p>
                 </div>
             </div>
         </div>
@@ -940,7 +1289,7 @@
         
         // Initialize animations
         const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item');
+            const elements = document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card');
             
             elements.forEach(el => {
                 const elementPosition = el.getBoundingClientRect().top;
@@ -954,7 +1303,7 @@
         };
         
         // Set initial state for animated elements
-        document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item').forEach(el => {
+        document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card').forEach(el => {
             el.style.opacity = 0;
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
