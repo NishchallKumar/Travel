@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaipur - The Pink City | Travel X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b08d57;
+            --secondary: #8b4513;
+            --accent: #e0115f;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --pink: #e6b8c2;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow: 0 15px 30px rgba(0,0,0,0.1);
+            --glass: rgba(255,255,255,0.1);
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3);
+        }
+        
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            padding: 15px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: var(--pink);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--pink);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--pink);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1543429776-2782fc586c9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: #a00c45;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Weather Section */
+        .weather-section {
+            padding: 50px 5%;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .weather-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .current-weather {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+        
+        .temp {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .weather-condition {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .weather-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .air-quality {
+            background: rgba(231, 76, 60, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .forecast {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .forecast-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 100px 5%;
+            background: white;
+        }
+        
+        .section.dark {
+            background: #f5f5f5;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: #666;
+        }
+        
+        /* Card Design */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .card-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+        
+        .price span {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: normal;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        
+        .rating {
+            color: var(--warning);
+            margin: 10px 0;
+        }
+        
+        /* Food Card */
+        .food-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .food-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .food-content {
+            padding: 25px;
+            flex: 1;
+        }
+        
+        .food-content h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .restaurant {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Attractions Section */
+        .attractions {
+            background: linear-gradient(135deg, var(--accent), #a00c45);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .attractions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+        }
+        
+        .attraction-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+        
+        /* Travel Tips */
+        .tips-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tip-item {
+            background: white;
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Map Section */
+        .map-container {
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            z-index: 10;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-logo span {
+            color: var(--pink);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--pink);
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: #a00c45;
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section {
+                padding: 80px 5%;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .food-card {
+                flex-direction: column;
+            }
+            
+            .food-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.9);
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .map-overlay {
+                max-width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 5%;
+            }
+            
+            .card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .weather-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Travel<span>X</span></a>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#" class="active">Destinations</a>
+            <a href="#">Tours</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover <span>Jaipur</span></h1>
+            <p>The Pink City of India - Where royal heritage meets vibrant culture</p>
+            <a href="#attractions" class="cta-button">Explore Jaipur</a>
+        </div>
+    </section>
+    
+    <!-- Weather Section -->
+    <section class="weather-section">
+        <h2>Current Weather in Jaipur</h2>
+        <div class="weather-container">
+            <div class="current-weather">
+                <div class="weather-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="temp">36°C</div>
+                <div class="weather-condition">Sunny</div>
+                <div class="real-feel">RealFeel® 40°</div>
+                
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <p>Wind: SW 10 km/h</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <p>Humidity: 45%</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-sun"></i>
+                        <p>UV Index: 8 Very High</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-eye"></i>
+                        <p>Visibility: 8 km</p>
+                    </div>
+                </div>
+                
+                <div class="air-quality">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Air Quality: Moderate</h3>
+                    <p>Acceptable for most. Sensitive groups should consider reducing outdoor activity.</p>
+                </div>
+            </div>
+            
+            <div class="current-weather">
+                <h3>Today's Forecast</h3>
+                <div class="forecast">
+                    <div class="forecast-item">
+                        <h4>Day</h4>
+                        <div class="temp">38°C</div>
+                        <p>Sunny with clear skies</p>
+                        <p>Low humidity</p>
+                    </div>
+                    <div class="forecast-item">
+                        <h4>Night</h4>
+                        <div class="temp">28°C</div>
+                        <p>Clear and pleasant</p>
+                        <p>Light breeze</p>
+                    </div>
+                </div>
+                
+                <div class="travel-tip" style="margin-top: 30px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <h3><i class="fas fa-umbrella"></i> Travel Advisory</h3>
+                    <p>Best time to visit is November to February. Stay hydrated and use sun protection during summer months :cite[4].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Introduction Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Pink City</h2>
+                <p>Jaipur, the capital of Rajasthan, is known as the Pink City due to its distinctive terracotta-pink buildings that line the streets of the historic center, painted in 1876 to welcome Queen Victoria's husband, Prince Albert :cite[4].</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Royal Heritage</h3>
+                        <p>Founded in 1727 by Maharaja Sawai Jai Singh II, Jaipur was India's first planned city. Its royal palaces and forts reflect the grandeur of Rajput architecture :cite[4].</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Cultural Hub</h3>
+                        <p>Jaipur is a vibrant center for traditional arts, crafts, and cuisine. From intricate block printing to gemstone cutting, the city preserves centuries-old techniques :cite[2].</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Modern Renaissance</h3>
+                        <p>While preserving its heritage, Jaipur has developed a modern cafe culture and luxury hospitality scene, blending tradition with contemporary comforts :cite[5].</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Top Attractions -->
+    <section id="attractions" class="section attractions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Attractions</h2>
+                <p>Explore Jaipur's magnificent palaces, forts, and cultural landmarks</p>
+            </div>
+            
+            <div class="grid">
+                <div class="attraction-card">
+                    <h3>Amer Fort</h3>
+                    <p>A majestic hilltop fortress complex with palaces, courtyards, and the famous Sheesh Mahal (Mirror Palace). Built with red sandstone and marble, it offers panoramic views of Maota Lake :cite[4].</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        4.8 (18,500+ reviews)
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <h3>City Palace</h3>
+                    <p>The royal residence features courtyards, gardens, and buildings blending Rajput and Mughal architecture. The Chandra Mahal still houses the royal family :cite[2].</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        4.9 (15,200+ reviews)
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <h3>Hawa Mahal</h3>
+                    <p>The iconic "Palace of Winds" with its honeycomb facade of 953 windows allowed royal women to observe street life unseen. A masterpiece of Rajput architecture :cite[4].</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        4.5 (12,700+ reviews)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Photo Gallery -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Jaipur in Pictures</h2>
+                <p>Capturing the vibrant colors and architectural wonders of the Pink City</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1591369822091-8b603c2a2e3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hawa Mahal">
+                    <div class="caption">Hawa Mahal at Sunrise</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1601233749202-95d04d5b3c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Amer Fort">
+                    <div class="caption">Amer Fort Courtyard</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1562615757-3a9aa8d7c7b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Jantar Mantar">
+                    <div class="caption">Jantar Mantar Observatory</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Local Market">
+                    <div class="caption">Colorful Johari Bazaar</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1574873867546-850c9a3ab0e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Palace">
+                    <div class="caption">City Palace Interior</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193433?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Street">
+                    <div class="caption">Pink City Streets</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Accommodation Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Accommodations</h2>
+                <p>Experience royal hospitality in Jaipur's finest hotels and palaces</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1596394516093-9d5d1a41a7b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Rajmahal Palace" class="card-img">
+                    <div class="card-content">
+                        <h3>Rajmahal Palace</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            4.2 km from City Palace
+                        </div>
+                        <p>Former residence of Maharani Gayatri Devi, featuring pastel Art Deco design and pink-turbaned waiters :cite[2].</p>
+                        <div class="price">$280<span> $350</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (4,900 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1560179707-14c236bb5d5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Oberoi Rajvilas" class="card-img">
+                    <div class="card-content">
+                        <h3>The Oberoi Rajvilas</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            15 km from Jaipur Airport
+                        </div>
+                        <p>Luxury resort set in 32 acres of landscaped gardens featuring royal tents, villas with private pools, and traditional architecture :cite[7].</p>
+                        <div class="price">$320<span> $400</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (3,850 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193433?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Samode Haveli" class="card-img">
+                    <div class="card-content">
+                        <h3>Samode Haveli</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Heart of Old City
+                        </div>
+                        <p>18th-century mansion with serene courtyards, hand-painted murals, and signature date and jaggery ice cream :cite[2].</p>
+                        <div class="price">$150<span> $200</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            (2,100 Ratings)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Food Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Jaipur's Famous Food</h2>
+                <p>Savor the flavors of Rajasthan's royal culinary heritage</p>
+            </div>
+            
+            <div class="food-list">
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dal Baati Churma" class="food-img">
+                    <div class="food-content">
+                        <h3>Dal Baati Churma</h3>
+                        <p>Rajasthan's signature dish: wheat rolls baked over woodfire, served with lentils and sweet crumbled wheat dessert :cite[5].</p>
+                        <span class="restaurant">Spice Court</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Near Johari Bazaar
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1630910393544-9d0c8b1d9a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pyaaz Kachori" class="food-img">
+                    <div class="food-content">
+                        <h3>Pyaaz Kachori</h3>
+                        <p>Flaky pastry stuffed with spiced onion mixture, deep-fried to golden perfection - Jaipur's favorite street snack :cite[5].</p>
+                        <span class="restaurant">Rawat Mishtan Bhandar</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Station Road
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Lassi" class="food-img">
+                    <div class="food-content">
+                        <h3>Makhaniya Lassi</h3>
+                        <p>Creamy yogurt drink topped with thick malai (cream) and dry fruits, served in traditional clay cups :cite[5].</p>
+                        <span class="restaurant">Kishan Lal Govind Naraian</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            MI Road, Panch Batti
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Travel Tips -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Travel Tips</h2>
+                <p>Essential information for your Jaipur visit</p>
+            </div>
+            
+            <div class="tips-container">
+                <div class="tip-item">
+                    <h3>Best Time to Visit</h3>
+                    <p>November to February offers pleasant weather (8-25°C). Avoid April-June when temperatures exceed 40°C. Monsoon season (July-September) brings moderate rainfall :cite[4].</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Getting Around</h3>
+                    <p>Use Uber/Ola for hassle-free transportation. Auto-rickshaws are plentiful - negotiate fares beforehand. For a unique experience, try cycle rickshaws in the old city.</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Cultural Etiquette</h3>
+                    <p>Dress modestly, especially when visiting religious sites. Remove shoes before entering temples. Ask permission before photographing people :cite[4].</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Shopping Tips</h3>
+                    <p>Bargain at local markets but fixed prices at government emporiums. Famous buys include blue pottery, block-printed textiles, gemstones, and Mojari footwear :cite[2].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Jaipur</h2>
+                <p>Key locations to visit during your trip</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 100%; background: #e9ecef; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 5rem; color: #666; margin-bottom: 20px;"></i>
+                        <h3>Interactive Jaipur Map</h3>
+                        <p>Key locations marked for your visit</p>
+                    </div>
+                </div>
+                <div class="map-overlay">
+                    <h3>Key Locations:</h3>
+                    <ul>
+                        <li>Amer Fort</li>
+                        <li>City Palace</li>
+                        <li>Hawa Mahal</li>
+                        <li>Jantar Mantar</li>
+                        <li>Albert Hall Museum</li>
+                        <li>Johari Bazaar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Travel<span>X</span></div>
+                    <p>Creating unforgettable travel experiences since 2010. Our team of experts ensures you discover the authentic beauty of every destination.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Destinations</a></li>
+                        <li><a href="#">Tours</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>India Destinations</h3>
+                    <ul>
+                        <li><a href="#">Jaipur</a></li>
+                        <li><a href="#">Agra</a></li>
+                        <li><a href="#">Varanasi</a></li>
+                        <li><a href="#">Goa</a></li>
+                        <li><a href="#">Kerala</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, Mumbai</li>
+                        <li><i class="fas fa-phone"></i> +91 123 456 7890</li>
+                        <li><i class="fas fa-envelope"></i> info@travelx.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Travel X. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for travelers
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Card hover effect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const { width, height } = card.getBoundingClientRect();
+                const xRotation = 5 * ((y - height / 2) / height);
+                const yRotation = -5 * ((x - width / 2) / width);
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+        
+        // Back to top functionality
+        document.querySelector('.back-to-top').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card');
+            
+            elements.forEach(el => {
+                const elementPosition = el.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if(elementPosition < screenPosition) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        });
+        
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
