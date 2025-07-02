@@ -143,7 +143,7 @@
             gap: 30px;
         }
         
-        .destination-card {
+       /* .destination-card {
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
@@ -194,6 +194,89 @@
         .rating {
             color: #f39c12;
             margin-bottom: 15px;
+        }*/
+        .destination-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .destination-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #868e96;
+            margin-bottom: 15px;
+        }
+
+        .location i {
+            color: #ff6b6b;
+        }
+
+        .card-content p {
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .card-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e9ecef;
+            padding-top: 15px;
+            color: #868e96;
+            font-size: 0.9rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         /* Features Section */
@@ -461,7 +544,7 @@
         <div class="hero-content">
             <h1>Discover Your Next Adventure</h1>
             <p>Explore the world's most breathtaking destinations with our expert travel guides and curated experiences.</p>
-            <a href="/destination.html" class="btn">Explore Destinations</a>
+            <a href="#destination" class="btn">Explore Destinations</a>
         </div>
     </section>
 
@@ -474,6 +557,79 @@
             </div>
             <div class="destinations">
                 <div class="destination-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80" alt="Taj Mahal, Agra">
+                        <div class="card-tag">Heritage</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Taj Mahal, Agra</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Uttar Pradesh</span>
+                        </div>
+                        <p>The iconic white marble mausoleum, a UNESCO World Heritage site and one of the Seven Wonders of the World, symbolizing eternal love.</p>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (2.4k)</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>2 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1602643163983-ed0babc39797?q=80&amp;w=765&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Jaipur, Rajasthan">
+                        <div class="card-tag">Cultural</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Jaipur, Rajasthan</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Rajasthan</span>
+                        </div>
+                        <p>The Pink City, famous for its stunning palaces, vibrant bazaars, and rich cultural heritage. Explore Amber Fort and Hawa Mahal.</p>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.7 (2.4k)</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>3 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1632&amp;q=80" alt="Kerala Backwaters">
+                        <div class="card-tag">Relaxing</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Kerala Backwaters</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kerala</span>
+                        </div>
+                        <p>A network of tranquil canals, lagoons and lakes best experienced on a traditional houseboat. Enjoy lush landscapes and serene waters.</p>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (2.4k)</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>4 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<div class="destination-card">
                     <div class="card-img">
                         <img src="https://images.unsplash.com/photo-1609920658906-8223bd289001?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWFuYWxpfGVufDB8fDB8fHww" alt="Manali">
                     </div>
@@ -505,7 +661,7 @@
                         <div class="rating">★★★★☆</div>
                         <a href="#" class="btn">View Guide</a>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="destination-viewall">
                 <a href="/destination.html" class="btn">View All</a>
