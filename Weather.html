@@ -437,6 +437,10 @@
         let refreshInterval;
         let autoRefreshEnabled = true;
         let secondsUntilRefresh = 300; // 5 minutes
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("city")) {
+            currentCity = urlParams.get("city");
+        }
         
         // DOM Elements
         const weatherContainer = document.getElementById("weather-container");
