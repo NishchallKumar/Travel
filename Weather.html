@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agra Weather Dashboard</title>
+    <title>Weather Dashboard with 5-Day Forecast</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -29,7 +29,6 @@
             text-align: center;
             padding: 30px 0;
             margin-bottom: 20px;
-            position: relative;
         }
         
         header h1 {
@@ -42,9 +41,9 @@
             gap: 15px;
         }
         
-        .taj-icon {
-            color: #fff;
+        .weather-icon {
             font-size: 2.8rem;
+            color: #fff;
         }
         
         .search-container {
@@ -102,15 +101,9 @@
         
         .dashboard {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 25px;
             margin-bottom: 40px;
-        }
-        
-        @media (max-width: 900px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
         }
         
         .card {
@@ -157,7 +150,7 @@
             margin-bottom: 10px;
         }
         
-        .weather-icon {
+        .weather-icon-large {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             padding: 20px;
@@ -169,7 +162,7 @@
             margin-bottom: 10px;
         }
         
-        .weather-icon img {
+        .weather-icon-large img {
             width: 100%;
             height: auto;
         }
@@ -198,16 +191,10 @@
         
         .weather-details {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             width: 100%;
             margin-top: 20px;
-        }
-        
-        @media (max-width: 600px) {
-            .weather-details {
-                grid-template-columns: 1fr;
-            }
         }
         
         .weather-detail {
@@ -235,51 +222,47 @@
             font-weight: 600;
         }
         
-        .air-quality {
+        .forecast-container {
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        .aqi-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-        
-        .aqi-status {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            background: rgba(76, 175, 80, 0.3);
-            margin-bottom: 15px;
-        }
-        
-        .forecast {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .forecast-item {
+        .forecast-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 15px;
+            gap: 10px;
+        }
+        
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .forecast-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .forecast-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
         }
         
         .forecast-day {
             font-weight: 600;
-            width: 100px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
         }
         
         .forecast-icon {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
+            margin: 10px auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -291,16 +274,15 @@
         }
         
         .forecast-temp {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            width: 100px;
-            text-align: right;
+            margin: 5px 0;
         }
         
         .forecast-condition {
-            flex: 1;
-            text-align: center;
+            font-size: 0.9rem;
             text-transform: capitalize;
+            opacity: 0.9;
         }
         
         .update-info {
@@ -375,13 +357,27 @@
             margin-top: 10px;
             display: none;
         }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .temp {
+                font-size: 3.5rem;
+            }
+            
+            .weather-details {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-taj-mahal taj-icon"></i> Weather Dashboard</h1>
-            <p>Real-time weather updates. Search for any city worldwide.</p>
+            <h1><i class="fas fa-cloud-sun weather-icon"></i> Weather Dashboard</h1>
+            <p>Real-time weather updates with 5-day forecast. Search for any city worldwide.</p>
             
             <div class="search-container">
                 <input type="text" id="city-search" placeholder="Search for a city...">
@@ -408,21 +404,12 @@
                         <p>Loading weather data...</p>
                     </div>
                 </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2><i class="fas fa-calendar-day"></i> 5-Day Forecast</h2>
-                </div>
-                <div class="forecast" id="forecast-container">
-                    <!-- Forecast will be populated by JavaScript -->
-                </div>
                 
-                <div class="air-quality">
-                    <h3><i class="fas fa-wind"></i> Air Quality Index (AQI)</h3>
-                    <div class="aqi-value" id="aqi-value">--</div>
-                    <div class="aqi-status" id="aqi-status">Loading...</div>
-                    <p id="aqi-description">Air quality data will be displayed here.</p>
+                <div class="forecast-container">
+                    <h3 class="forecast-title"><i class="fas fa-calendar-day"></i> 5-Day Forecast</h3>
+                    <div class="forecast-grid" id="forecast-container">
+                        <!-- Forecast will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -445,7 +432,7 @@
     <script>
         // Configuration
         const apiKey = "6904fe5d6d24df327243146c77429028";
-        let currentCity = "Delhi";
+        let currentCity = "Agra";
         let weatherInterval;
         let refreshInterval;
         let autoRefreshEnabled = true;
@@ -461,9 +448,6 @@
         const citySearchInput = document.getElementById("city-search");
         const searchButton = document.getElementById("search-button");
         const errorMessage = document.getElementById("error-message");
-        const aqiValue = document.getElementById("aqi-value");
-        const aqiStatus = document.getElementById("aqi-status");
-        const aqiDescription = document.getElementById("aqi-description");
         
         // Format date to readable string
         function formatDate(timestamp) {
@@ -475,6 +459,12 @@
         function formatDay(timestamp) {
             const date = new Date(timestamp);
             return date.toLocaleDateString([], {weekday: 'short'});
+        }
+        
+        // Format full date for forecast
+        function formatFullDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString([], {month: 'short', day: 'numeric'});
         }
         
         // Update the refresh timer display
@@ -509,7 +499,7 @@
             }
         }
         
-        // Fetch current weather
+        // Fetch current weather and forecast
         async function fetchWeather() {
             try {
                 // Show loading state
@@ -523,7 +513,7 @@
                 // Hide error message
                 errorMessage.style.display = 'none';
                 
-                // Fetch weather data
+                // Fetch current weather data
                 const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${apiKey}&units=metric`;
                 const weatherResponse = await fetch(weatherUrl);
                 
@@ -534,7 +524,7 @@
                 const weatherData = await weatherResponse.json();
                 
                 // Fetch forecast data
-                const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${apiKey}&units=metric&cnt=5`;
+                const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${currentCity}&appid=${apiKey}&units=metric`;
                 const forecastResponse = await fetch(forecastUrl);
                 const forecastData = await forecastResponse.json();
                 
@@ -553,7 +543,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <h3>${weatherData.name}, ${weatherData.sys.country}</h3>
                     </div>
-                    <div class="weather-icon">
+                    <div class="weather-icon-large">
                         <img src="${iconUrl}" alt="${weatherData.weather[0].description}" />
                     </div>
                     <div class="temp">${Math.round(weatherData.main.temp)}°C</div>
@@ -599,42 +589,31 @@
                 
                 // Generate forecast HTML
                 let forecastHtml = '';
-                // Take every 8th item to get daily forecast (API returns every 3 hours)
-                for (let i = 0; i < forecastData.list.length; i += 8) {
+                // Use the first 5 days of forecast (every 8th item for daily forecast)
+                for (let i = 0; i < 40; i += 8) {
                     const forecast = forecastData.list[i];
-                    const forecastIconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
-                    
-                    forecastHtml += `
-                        <div class="forecast-item">
-                            <div class="forecast-day">${formatDay(forecast.dt * 1000)}</div>
-                            <div class="forecast-icon">
-                                <img src="${forecastIconUrl}" alt="${forecast.weather[0].description}">
+                    if (forecast) {
+                        const forecastIconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`;
+                        
+                        forecastHtml += `
+                            <div class="forecast-card">
+                                <div class="forecast-day">${formatDay(forecast.dt * 1000)}</div>
+                                <div class="forecast-date">${formatFullDate(forecast.dt * 1000)}</div>
+                                <div class="forecast-icon">
+                                    <img src="${forecastIconUrl}" alt="${forecast.weather[0].description}">
+                                </div>
+                                <div class="forecast-temp">${Math.round(forecast.main.temp)}°C</div>
+                                <div class="forecast-condition">${forecast.weather[0].description}</div>
+                                <div class="forecast-detail">
+                                    <div><i class="fas fa-temperature-high"></i> ${Math.round(forecast.main.feels_like)}°</div>
+                                    <div><i class="fas fa-tint"></i> ${forecast.main.humidity}%</div>
+                                </div>
                             </div>
-                            <div class="forecast-condition">${forecast.weather[0].description}</div>
-                            <div class="forecast-temp">${Math.round(forecast.main.temp)}°C</div>
-                        </div>
-                    `;
+                        `;
+                    }
                 }
                 
                 forecastContainer.innerHTML = forecastHtml;
-                
-                // Simulate air quality data (since OpenWeatherMap requires separate subscription)
-                const aqi = Math.floor(Math.random() * 150) + 30;
-                aqiValue.textContent = aqi;
-                
-                if (aqi <= 50) {
-                    aqiStatus.textContent = "Good";
-                    aqiStatus.style.background = "rgba(76, 175, 80, 0.3)";
-                    aqiDescription.textContent = "Air quality is considered satisfactory, and air pollution poses little or no risk.";
-                } else if (aqi <= 100) {
-                    aqiStatus.textContent = "Moderate";
-                    aqiStatus.style.background = "rgba(255, 193, 7, 0.3)";
-                    aqiDescription.textContent = "Air quality is acceptable; however, there may be a risk for some people.";
-                } else {
-                    aqiStatus.textContent = "Unhealthy";
-                    aqiStatus.style.background = "rgba(244, 67, 54, 0.3)";
-                    aqiDescription.textContent = "Some members of the general public may experience health effects.";
-                }
                 
                 // Reset refresh timer
                 secondsUntilRefresh = 300;
