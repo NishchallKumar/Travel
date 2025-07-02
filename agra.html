@@ -780,50 +780,10 @@
 <section class="weather-section">
     <h2>Current Weather in Agra</h2>
     <div class="weather-container" id="weather-container">
-        <p>Loading weather data...</p>
+        <a href="/weather.html?city=agra">Check Weather</a>
     </div>
 </section>
 
-<script>
-    const apiKey = "6904fe5d6d24df327243146c77429028"; // Replace with your API key
-    const city = "Agra";
-
-    async function fetchWeather() {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${agra}&appid=${6904fe5d6d24df327243146c77429028}&units=metric`;
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const iconCode = data.weather[0].icon;
-        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-        const weatherHtml = `
-            <div class="current-weather">
-                <div class="weather-icon">
-                    <img src="${iconUrl}" alt="${data.weather[0].description}" />
-                </div>
-                <div class="temp">${data.main.temp}°C</div>
-                <div class="weather-condition">${data.weather[0].main}</div>
-                <div class="real-feel">RealFeel® ${data.main.feels_like}°</div>
-
-                <div class="weather-details">
-                    <div class="weather-detail"><i class="fas fa-wind"></i><p>Wind: ${data.wind.speed} m/s</p></div>
-                    <div class="weather-detail"><i class="fas fa-tint"></i><p>Humidity: ${data.main.humidity}%</p></div>
-                    <div class="weather-detail"><i class="fas fa-sun"></i><p>Pressure: ${data.main.pressure} hPa</p></div>
-                    <div class="weather-detail"><i class="fas fa-eye"></i><p>Visibility: ${data.visibility / 1000} km</p></div>
-                </div>
-
-                <div class="air-quality">
-                    <h3><i class="fas fa-info-circle"></i> Air Quality</h3>
-                    <p>Data not available in this API tier. Consider integrating an AQI API like IQAir.</p>
-                </div>
-            </div>
-        `;
-
-        document.getElementById("weather-container").innerHTML = weatherHtml;
-    }
-
-    fetchWeather();
-</script>
 
     
     <!-- Introduction Section -->
