@@ -236,6 +236,10 @@
             align-items: center;
             gap: 5px;
         }
+        .destination-page {
+            text-decoration: none; 
+            color: inherit; 
+        }
 
         /* Footer */
         footer {
@@ -478,7 +482,8 @@
                 description: "The iconic white marble mausoleum, a UNESCO World Heritage site and one of the Seven Wonders of the World, symbolizing eternal love.",
                 rating: 4.9,
                 days: 2,
-                tag: "Heritage"
+                tag: "Heritage",
+                page: "agra"
             },
             {
                 id: 2,
@@ -488,7 +493,8 @@
                 description: "The Pink City, famous for its stunning palaces, vibrant bazaars, and rich cultural heritage. Explore Amber Fort and Hawa Mahal.",
                 rating: 4.7,
                 days: 3,
-                tag: "Cultural"
+                tag: "Cultural",
+                page: "jaipur"
             },
             {
                 id: 3,
@@ -498,7 +504,8 @@
                 description: "A network of tranquil canals, lagoons and lakes best experienced on a traditional houseboat. Enjoy lush landscapes and serene waters.",
                 rating: 4.8,
                 days: 4,
-                tag: "Relaxing"
+                tag: "Relaxing",
+                page: "jaipur"
             },
             {
                 id: 4,
@@ -508,7 +515,8 @@
                 description: "Famous for its golden beaches, vibrant nightlife, Portuguese heritage, and delicious seafood. Perfect for sun, sand, and relaxation.",
                 rating: 4.6,
                 days: 5,
-                tag: "Beach"
+                tag: "Beach",
+                page: "jaipur"
             },
             {
                 id: 5,
@@ -518,7 +526,8 @@
                 description: "One of the world's oldest living cities, a spiritual hub on the banks of the Ganges River. Witness mesmerizing Ganga Aarti ceremonies.",
                 rating: 4.7,
                 days: 2,
-                tag: "Spiritual"
+                tag: "Spiritual",
+                page: "jaipur"
             },
             {
                 id: 6,
@@ -528,7 +537,8 @@
                 description: "A high-altitude desert with stunning landscapes, Buddhist monasteries, and adventure activities. Experience the majestic Himalayas.",
                 rating: 4.9,
                 days: 7,
-                tag: "Adventure"
+                tag: "Adventure",
+                page: "jaipur"
             },
             {
                 id: 7,
@@ -538,7 +548,8 @@
                 description: "A magnificent royal residence with Indo-Saracenic architecture, illuminated by 97,000 lights on Sundays and during festivals.",
                 rating: 4.6,
                 days: 2,
-                tag: "Historical"
+                tag: "Historical",
+                page: "jaipur"
             },
             {
                 id: 8,
@@ -548,7 +559,8 @@
                 description: "Pristine beaches with turquoise waters, vibrant coral reefs, and historical sites. Perfect for diving, snorkeling, and relaxation.",
                 rating: 4.8,
                 days: 6,
-                tag: "Tropical"
+                tag: "Tropical",
+                page: "jaipur"
             },
             {
                 id: 9,
@@ -558,7 +570,8 @@
                 description: "A city in the state of Maharashtra in the Deccan plateau in Western India. The city is easy to navigate and is filled with art and history and has a bustling nightlife.",
                 rating: 4.5,
                 days: 3,
-                tag: "Deccan"
+                tag: "Deccan",
+                page: "jaipur"
             }
         ];
 
@@ -570,7 +583,7 @@
             destinations.forEach(destination => {
                 const card = document.createElement('div');
                 card.className = 'destination-card';
-                card.innerHTML = `
+                card.innerHTML = `<a class="destination-page" href="/${destination.page}.html">
                     <div class="card-image">
                         <img src="${destination.image}" alt="${destination.name}">
                         <div class="card-tag">${destination.tag}</div>
@@ -592,7 +605,7 @@
                                 <span>${destination.days} days</span>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
                 `;
                 grid.appendChild(card);
             });
