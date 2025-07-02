@@ -537,12 +537,13 @@
         .map-container {
           position: relative;
           width: 100%;
-          height: 400px; /* Adjust height as needed */
+          height: 400px;
         }
         
         #map {
           width: 100%;
           height: 100%;
+          z-index: 1;
         }
         
         .map-overlay {
@@ -553,6 +554,8 @@
           padding: 15px;
           border-radius: 5px;
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          z-index: 2; /* Ensure it stays above the map */
+          max-width: 250px;
         }
         
         .map-overlay h3 {
@@ -568,7 +571,6 @@
         .map-overlay li {
           margin-bottom: 5px;
         }
-        
         /* Footer */
         footer {
             background: var(--dark);
@@ -1121,25 +1123,25 @@
     </section>
     
     <!-- Map Section -->
-    <section class="section dark">
+ <section class="section dark">
   <div class="container">
     <div class="section-title">
       <h2>Explore Jaipur</h2>
       <p>Key locations to visit during your trip</p>
     </div>
     <div class="map-container">
-      <div id="map" style="width: 100%; height: 400px; background: #e9ecef;"></div>
-    </div>
-    <div class="map-overlay">
-      <h3>Key Locations:</h3>
-      <ul>
-        <li>Amer Fort</li>
-        <li>City Palace</li>
-        <li>Hawa Mahal</li>
-        <li>Jantar Mantar</li>
-        <li>Albert Hall Museum</li>
-        <li>Johari Bazaar</li>
-      </ul>
+      <div id="map" style="width: 100%; height: 400px;"></div>
+      <div class="map-overlay">
+        <h3>Key Locations:</h3>
+        <ul>
+          <li>Amer Fort</li>
+          <li>City Palace</li>
+          <li>Hawa Mahal</li>
+          <li>Jantar Mantar</li>
+          <li>Albert Hall Museum</li>
+          <li>Johari Bazaar</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1148,7 +1150,7 @@
   function initMap() {
     const city = { lat: 26.9124, lng: 75.7873 };
     const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 15,
+      zoom: 14,
       center: city,
     });
 
