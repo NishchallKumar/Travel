@@ -1106,8 +1106,6 @@
                         <li>Agra Fort</li>
                         <li>Mehtab Bagh</li>
                         <li>Itmad-ud-Daulah's Tomb</li>
-                        <li>Agra's Heritage Walk</li>
-                        <li>Kinari Bazaar</li>
                     </ul>
                 </div>
             </div>
@@ -1116,19 +1114,17 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe9RcVW8oYt22Qly7bD7dEGNxBTgkkeKc&callback=initMap" async defer></script>
 <script>
   function initMap() {
-    const city = { lat: 26.9124, lng: 75.7873 };
+    const city = { lat: 27.1766701, lng: 77.9874751 };
     const map = new google.maps.Map(document.getElementById("map"), {
       zoom: 13,
       center: city,
     });
 
     const locations = [
-      { title: "Amer Fort", position: { lat: 26.9855, lng: 75.8504 } },
-      { title: "City Palace", position: { lat: 26.9250, lng: 75.8198 } },
-      { title: "Hawa Mahal", position: { lat: 26.9237, lng: 75.8267 } },
-      { title: "Jantar Mantar", position: { lat: 26.9243, lng: 75.8249 } },
-      { title: "Albert Hall Museum", position: { lat: 26.9143, lng: 75.8213 } },
-      { title: "Johari Bazaar", position: { lat: 26.9200, lng: 75.8250 } },
+      { title: "Taj Mahal", position: { lat: 27.1751448, lng: 78.0395673 } },
+      { title: "Agra Fort", position: { lat: 27.1795328, lng: 78.0185371 } },
+      { title: "Mehtab Bagh", position: { lat: 27.1800494, lng: 78.039513 } },
+      { title: "Itmad-ud-Daulah's Tomb", position: { lat: 27.1928873, lng: 78.0284059 } },
     ];
 
     locations.forEach((location) => {
