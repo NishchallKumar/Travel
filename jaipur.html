@@ -1087,34 +1087,54 @@
     
     <!-- Map Section -->
     <section class="section dark">
-        <div class="container">
-            <div class="section-title">
-                <h2>Explore Jaipur</h2>
-                <p>Key locations to visit during your trip</p>
-            </div>
-            
-            <div class="map-container">
-                <div id="map" style="width: 100%; height: 100%; background: #e9ecef; display: flex; align-items: center; justify-content: center;">
-                    <div style="text-align: center; padding: 20px;">
-                        <i class="fas fa-map-marked-alt" style="font-size: 5rem; color: #666; margin-bottom: 20px;"></i>
-                        <h3>Interactive Jaipur Map</h3>
-                        <p>Key locations marked for your visit</p>
-                    </div>
-                </div>
-                <div class="map-overlay">
-                    <h3>Key Locations:</h3>
-                    <ul>
-                        <li>Amer Fort</li>
-                        <li>City Palace</li>
-                        <li>Hawa Mahal</li>
-                        <li>Jantar Mantar</li>
-                        <li>Albert Hall Museum</li>
-                        <li>Johari Bazaar</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Explore Jaipur</h2>
+      <p>Key locations to visit during your trip</p>
+    </div>
+    <div class="map-container">
+      <div id="map" style="width: 100%; height: 400px; background: #e9ecef;"></div>
+    </div>
+    <div class="map-overlay">
+      <h3>Key Locations:</h3>
+      <ul>
+        <li>Amer Fort</li>
+        <li>City Palace</li>
+        <li>Hawa Mahal</li>
+        <li>Jantar Mantar</li>
+        <li>Albert Hall Museum</li>
+        <li>Johari Bazaar</li>
+      </ul>
+    </div>
+  </div>
+</section>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe9RcVW8oYt22Qly7bD7dEGNxBTgkkeKc&callback=initMap" async defer></script>
+<script>
+  function initMap() {
+    const city = { lat: 26.9124, lng: 75.7873 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 12,
+      center: city,
+    });
+
+    const locations = [
+      { title: "Amer Fort", position: { lat: 26.9855, lng: 75.8504 } },
+      { title: "City Palace", position: { lat: 26.9250, lng: 75.8198 } },
+      { title: "Hawa Mahal", position: { lat: 26.9237, lng: 75.8267 } },
+      { title: "Jantar Mantar", position: { lat: 26.9243, lng: 75.8249 } },
+      { title: "Albert Hall Museum", position: { lat: 26.9143, lng: 75.8213 } },
+      { title: "Johari Bazaar", position: { lat: 26.9200, lng: 75.8250 } },
+    ];
+
+    locations.forEach((location) => {
+      new google.maps.Marker({
+        position: location.position,
+        map: map,
+        title: location.title,
+      });
+    });
+  }
+</script>
     
     <!-- Footer -->
     <footer>
