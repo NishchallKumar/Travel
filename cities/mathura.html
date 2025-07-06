@@ -983,7 +983,7 @@
                             0.5 km from Krishna Janmabhoomi
                         </div>
                         <p>Traditional decor with modern amenities. Offers guided spiritual tours and authentic local cuisine.</p>
-                        <div class="price">$42<span> $60</span></div>
+                        <div class="price">₹ 8,643</div>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -1004,7 +1004,7 @@
                             1.2 km from Dwarkadhish Temple
                         </div>
                         <p>Luxury heritage property with traditional architecture, spa services, and rooftop restaurant.</p>
-                        <div class="price">$85<span> $120</span></div>
+                        <div class="price">₹ 2,096</div>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -1025,7 +1025,7 @@
                             On Highway
                         </div>
                         <p>Luxury accommodation with beautiful views and authentic home-cooked meals.</p>
-                        <div class="price">$28<span> $40</span></div>
+                        <div class="price">₹ 4,256</div>
                         <div class="rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -1137,12 +1137,39 @@
                         <li>Vishram Ghat</li>
                         <li>Govardhan Hill</li>
                         <li>Banke Bihari Temple</li>
-                        <li>Radha Kund</li>
+                        <li>Prem Mandir</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe9RcVW8oYt22Qly7bD7dEGNxBTgkkeKc&callback=initMap" async defer></script>
+<script>
+  function initMap() {
+    const city = { lat: 27.4743501, lng: 77.6017532 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 13,
+      center: city,
+    });
+
+    const locations = [
+      { title: "Shri Krishna Janmabhoomi", position: { lat: 27.5054451, lng: 77.664738 } },
+      { title: "Dwarkadhish Temple", position: { lat: 27.5051754, lng: 77.6823165 } },
+      { title: "Vishram Ghat", position: { lat: 27.5051754, lng: 77.6823165 } },
+      { title: "Govardhan Hill", position: { lat: 27.4729992, lng: 77.4337003 } },
+      { title: "Banke Bihari Temple", position: { lat: 27.5488491, lng: 77.6512894 } },
+      { title: "Prem Mandir", position: { lat: 27.5721185, lng: 77.6689518 } },
+    ];
+
+    locations.forEach((location) => {
+      new google.maps.Marker({
+        position: location.position,
+        map: map,
+        title: location.title,
+      });
+    });
+  }
+</script>
     
     <!-- Footer -->
     <footer>
