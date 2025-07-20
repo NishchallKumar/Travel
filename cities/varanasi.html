@@ -1153,12 +1153,12 @@
         </div>
     </section>
     
-    <!-- Map Section -->
+        <!-- Map Section -->
     <section class="section dark">
         <div class="container">
             <div class="section-title">
                 <h2>Explore Varanasi</h2>
-                <p>Key spiritual locations to visit</p>
+                <p>Key locations to visit during your trip</p>
             </div>
             
             <div class="map-container">
@@ -1166,7 +1166,7 @@
                     <div style="text-align: center; padding: 20px;">
                         <i class="fas fa-map-marked-alt" style="font-size: 5rem; color: #666; margin-bottom: 20px;"></i>
                         <h3>Interactive Varanasi Map</h3>
-                        <p>Sacred locations marked for your pilgrimage</p>
+                        <p>Key locations marked for your visit</p>
                     </div>
                 </div>
                 <div class="map-overlay">
@@ -1183,6 +1183,33 @@
             </div>
         </div>
     </section>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe9RcVW8oYt22Qly7bD7dEGNxBTgkkeKc&callback=initMap" async defer></script>
+<script>
+  function initMap() {
+    const city = { lat: 25.3207397, lng: 82.9087075 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 13,
+      center: city,
+    });
+
+    const locations = [
+      { title: "Kashi Vishwanath Temple", position: { lat: 25.3108532, lng: 83.0059147 } },
+      { title: "Dashashwamedh Ghat", position: { lat: 25.307893, lng: 83.0074387 } },
+      { title: "Sankat Mochan Temple", position: { lat: 25.317293, lng: 82.9702547 } },
+      { title: "Assi Ghat", position: { lat: 25.2886746, lng: 83.0041202 } },
+      { title: "Sarnath", position: { lat: 25.3729358, lng: 83.0042352 } },
+      { title: "Manikarnika Ghat", position: { lat: 25.3110574 , lng: 83.0114527 } },
+    ];
+
+    locations.forEach((location) => {
+      new google.maps.Marker({
+        position: location.position,
+        map: map,
+        title: location.title,
+      });
+    });
+  }
+</script>
     
     <!-- Footer -->
     <footer>
