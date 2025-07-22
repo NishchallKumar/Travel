@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goa - India's Beach Paradise | Travel X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocean-blue: #0077b6;
+            --sunset-orange: #ff6b6b;
+            --sandy-beige: #f0e6d2;
+            --palm-green: #2a9d8f;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--sandy-beige);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3);
+        }
+        
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            padding: 15px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: var(--sunset-orange);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--sunset-orange);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--sunset-orange);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--sunset-orange);
+            color: white;
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Weather Section */
+        .weather-section {
+            padding: 50px 5%;
+            background: var(--ocean-blue);
+            color: white;
+            text-align: center;
+        }
+        
+        .weather-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .current-weather {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+        
+        .temp {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .weather-condition {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .weather-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .surf-alert {
+            background: rgba(255,255,255,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .forecast {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .forecast-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 100px 5%;
+            background: white;
+        }
+        
+        .section.dark {
+            background: #f5f5f5;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--ocean-blue);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: #666;
+        }
+        
+        /* Card Design */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--ocean-blue);
+        }
+        
+        .card-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+        
+        .price span {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: normal;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        
+        .rating {
+            color: #f39c12;
+            margin: 10px 0;
+        }
+        
+        /* Food Card */
+        .food-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .food-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .food-content {
+            padding: 25px;
+            flex: 1;
+        }
+        
+        .food-content h3 {
+            color: var(--sunset-orange);
+            margin-bottom: 10px;
+        }
+        
+        .restaurant {
+            font-weight: 600;
+            color: var(--palm-green);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Attractions Section */
+        .attractions {
+            background: linear-gradient(135deg, var(--ocean-blue), var(--palm-green));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .attractions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+        }
+        
+        .attraction-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+        
+        /* Travel Tips */
+        .tips-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tip-item {
+            background: white;
+            border-left: 4px solid var(--ocean-blue);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Map Section */
+        .map-container {
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            z-index: 10;
+        }
+        
+        /* Festival Highlight */
+        .festival-highlight {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1559620192-032c4bc4674e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 100px 5%;
+            color: white;
+            text-align: center;
+        }
+        
+        .festival-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .festival-content h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+        
+        .festival-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-logo span {
+            color: var(--sunset-orange);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--sunset-orange);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--sunset-orange);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--sunset-orange);
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--sunset-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: #ff5252;
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section {
+                padding: 80px 5%;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .food-card {
+                flex-direction: column;
+            }
+            
+            .food-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.9);
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .map-overlay {
+                max-width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 0;
+            }
+            
+            .festival-content h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 5%;
+            }
+            
+            .card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .weather-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Travel<span>X</span></a>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#" class="active">Destinations</a>
+            <a href="#">Tours</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover <span>Goa</span></h1>
+            <p>India's beach paradise where sun, sand, and sea meet Portuguese heritage</p>
+            <a href="#attractions" class="cta-button">Explore Goa</a>
+        </div>
+    </section>
+    
+    <!-- Weather Section -->
+    <section class="weather-section">
+        <h2>Current Weather in Goa</h2>
+        <div class="weather-container">
+            <div class="current-weather">
+                <div class="weather-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="temp">32°C</div>
+                <div class="weather-condition">Sunny</div>
+                <div class="real-feel">RealFeel® 36°</div>
+                
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <p>Wind: SW 12 km/h</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <p>Humidity: 75%</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-sun"></i>
+                        <p>UV Index: 9 High</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-eye"></i>
+                        <p>Visibility: 10 km</p>
+                    </div>
+                </div>
+                
+                <div class="surf-alert">
+                    <h3><i class="fas fa-water"></i> Surf Report</h3>
+                    <p>Waves: 3-4 ft | Best beaches: Ashwem, Morjim, Palolem</p>
+                </div>
+            </div>
+            
+            <div class="current-weather">
+                <h3>Today's Forecast</h3>
+                <div class="forecast">
+                    <div class="forecast-item">
+                        <h4>Day</h4>
+                        <div class="temp">33°C</div>
+                        <p>Mostly sunny</p>
+                        <p>High humidity</p>
+                    </div>
+                    <div class="forecast-item">
+                        <h4>Night</h4>
+                        <div class="temp">26°C</div>
+                        <p>Partly cloudy</p>
+                        <p>Sea breeze</p>
+                    </div>
+                </div>
+                
+                <div class="travel-tip" style="margin-top: 30px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <h3><i class="fas fa-umbrella-beach"></i> Travel Advisory</h3>
+                    <p>Perfect beach weather! Don't forget sunscreen and stay hydrated.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Introduction Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>India's Beach Paradise</h2>
+                <p>Goa, India's smallest state, is renowned for its stunning beaches, Portuguese-influenced heritage, and vibrant nightlife.</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Beach Culture</h3>
+                        <p>With over 50 beaches along its coastline, Goa offers everything from lively party beaches to secluded coves perfect for relaxation.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Portuguese Heritage</h3>
+                        <p>Goa's 450 years of Portuguese rule left a legacy of beautiful churches, colonial architecture, and a unique Indo-Latin culture.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Culinary Delights</h3>
+                        <p>Goan cuisine blends Indian spices with Portuguese flavors, featuring seafood curries, vindaloo, and bebinca dessert.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Top Attractions -->
+    <section id="attractions" class="section attractions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Must-Visit Places</h2>
+                <p>Discover the best of Goa's beaches, heritage, and nature</p>
+            </div>
+            
+            <div class="grid">
+                <div class="attraction-card">
+                    <h3>Baga & Calangute Beaches</h3>
+                    <p>Goa's most famous beaches with water sports, beach shacks, and vibrant nightlife. Perfect for first-time visitors.</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        4.9 (22,500+ reviews)
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <h3>Old Goa Churches</h3>
+                    <p>UNESCO World Heritage site with magnificent Portuguese-era churches including Basilica of Bom Jesus.</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        4.7 (18,200+ reviews)
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <h3>Dudhsagar Falls</h3>
+                    <p>Majestic four-tiered waterfall on the Goa-Karnataka border, surrounded by lush forests. Accessible by jeep safari.</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        4.5 (15,800+ reviews)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Festival Highlight -->
+    <section class="festival-highlight">
+        <div class="festival-content">
+            <h2>Experience Goa Carnival</h2>
+            <p>Join India's biggest street party before Lent! Experience colorful parades, floats, music, and dance during this three-day festival.</p>
+            <p>Held annually in February/March, the carnival showcases Goa's unique Portuguese-influenced culture.</p>
+            <a href="#" class="cta-button">Plan Your Carnival Visit</a>
+        </div>
+    </section>
+    
+    <!-- Photo Gallery -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Goa in Pictures</h2>
+                <p>Capturing the vibrant spirit of India's beach paradise</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Baga Beach">
+                    <div class="caption">Sunset at Baga Beach</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Basilica of Bom Jesus">
+                    <div class="caption">Basilica of Bom Jesus, Old Goa</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dudhsagar Falls">
+                    <div class="caption">Majestic Dudhsagar Falls</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Goan Carnival">
+                    <div class="caption">Colorful Goa Carnival Parade</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1588416491112-32b1d690b3b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Anjuna Flea Market">
+                    <div class="caption">Anjuna Flea Market</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1593692909680-61b48c04b88e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Goan Cuisine">
+                    <div class="caption">Traditional Goan Seafood Platter</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Accommodation Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Accommodations</h2>
+                <p>Stay in style at Goa's best beachfront properties</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Taj Fort Aguada" class="card-img">
+                    <div class="card-content">
+                        <h3>Taj Fort Aguada</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Sinquerim Beach
+                        </div>
+                        <p>Luxury heritage resort in a 17th-century Portuguese fort with private beach access and panoramic sea views.</p>
+                        <div class="price">$180<span> $250</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (4,875 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beach Huts" class="card-img">
+                    <div class="card-content">
+                        <h3>Palolem Beach Huts</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Palolem Beach
+                        </div>
+                        <p>Traditional palm-thatched huts right on the beach. Experience authentic Goan beach living.</p>
+                        <div class="price">$45<span> $65</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (3,128 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Goan Villa" class="card-img">
+                    <div class="card-content">
+                        <h3>Portuguese Villa</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Fontainhas, Panjim
+                        </div>
+                        <p>Heritage villa in Goa's Latin Quarter with antique furniture and a private pool.</p>
+                        <div class="price">$120<span> $160</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            (2,638 Ratings)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Food Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Goa's Famous Food</h2>
+                <p>Delicious fusion of Indian spices and Portuguese flavors</p>
+            </div>
+            
+            <div class="food-list">
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fish Curry" class="food-img">
+                    <div class="food-content">
+                        <h3>Fish Curry Rice</h3>
+                        <p>Goa's staple dish - tangy coconut-based curry with fresh catch, served with steamed rice.</p>
+                        <span class="restaurant">Martin's Corner</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Betalbatim, South Goa
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1643275595391-9c8f4b9f0f3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pork Vindaloo" class="food-img">
+                    <div class="food-content">
+                        <h3>Pork Vindaloo</h3>
+                        <p>Fiery Goan specialty with Portuguese roots - pork marinated in vinegar and spices.</p>
+                        <span class="restaurant">Florentine's</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Saligao, North Goa
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Bebinca" class="food-img">
+                    <div class="food-content">
+                        <h3>Bebinca</h3>
+                        <p>Traditional Goan layered dessert made with coconut milk, eggs, and ghee.</p>
+                        <span class="restaurant">Confeitaria 31 de Janeiro</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Panjim, Goa
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Travel Tips -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Travel Tips</h2>
+                <p>Make the most of your Goan getaway</p>
+            </div>
+            
+            <div class="tips-container">
+                <div class="tip-item">
+                    <h3>Best Time to Visit</h3>
+                    <p>November-February: Pleasant weather (20°C-32°C), festivals, and events.<br>
+                    March-May: Hot but great for beach lovers and lower prices.<br>
+                    June-September: Monsoon season - lush greenery but limited beach activities.</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Getting Around</h3>
+                    <p>Scooters/motorbikes: Most popular way to explore Goa (~₹300/day)<br>
+                    Taxis: Available but expensive; use app-based services<br>
+                    Buses: Cheap but limited routes; good for long distances</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Beach Guide</h3>
+                    <p>North Goa: Vibrant beaches (Baga, Calangute) with parties and water sports<br>
+                    South Goa: Serene beaches (Palolem, Agonda) for relaxation<br>
+                    Central Goa: Heritage sites and local culture</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Local Etiquette</h3>
+                    <p>Dress modestly away from beaches, especially in villages and religious sites.<br>
+                    Respect local customs - avoid public displays of affection.<br>
+                    Bargain at flea markets but be polite.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Goa</h2>
+                <p>Key locations to visit during your trip</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 100%; background: #e9ecef; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 5rem; color: #666; margin-bottom: 20px;"></i>
+                        <h3>Interactive Goa Map</h3>
+                        <p>Key locations marked for your beach holiday</p>
+                    </div>
+                </div>
+                <div class="map-overlay">
+                    <h3>Key Locations:</h3>
+                    <ul>
+                        <li>Baga & Calangute Beaches</li>
+                        <li>Anjuna Flea Market</li>
+                        <li>Basilica of Bom Jesus</li>
+                        <li>Dudhsagar Falls</li>
+                        <li>Fontainhas Latin Quarter</li>
+                        <li>Palolem Beach</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Travel<span>X</span></div>
+                    <p>Creating unforgettable beach getaways since 2010. Our team helps you discover the vibrant spirit of coastal destinations.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Destinations</a></li>
+                        <li><a href="#">Tours</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Beach Destinations</h3>
+                    <ul>
+                        <li><a href="#">Goa</a></li>
+                        <li><a href="#">Andaman Islands</a></li>
+                        <li><a href="#">Kerala</a></li>
+                        <li><a href="#">Lakshadweep</a></li>
+                        <li><a href="#">Puri</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Beach Road, Calangute</li>
+                        <li><i class="fas fa-phone"></i> +91 987 654 3210</li>
+                        <li><i class="fas fa-envelope"></i> info@travelx.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Travel X. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for beach lovers
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Card hover effect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const { width, height } = card.getBoundingClientRect();
+                const xRotation = 5 * ((y - height / 2) / height);
+                const yRotation = -5 * ((x - width / 2) / width);
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+        
+        // Back to top functionality
+        document.querySelector('.back-to-top').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card');
+            
+            elements.forEach(el => {
+                const elementPosition = el.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        });
+        
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
