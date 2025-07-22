@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manali - Paradise in the Himalayas | Travel X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mountain-blue: #4a86e8;
+            --snow-white: #f0f8ff;
+            --pine-green: #2e7d32;
+            --sunset-orange: #ff6f00;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--snow-white);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3);
+        }
+        
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            padding: 15px 5%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: var(--mountain-blue);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--mountain-blue);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--mountain-blue);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1598256989800-fe5f95a9787a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--mountain-blue);
+            color: white;
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: #3a75d8;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Weather Section */
+        .weather-section {
+            padding: 50px 5%;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .weather-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .current-weather {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            min-width: 300px;
+            box-shadow: var(--shadow);
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+        
+        .temp {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .weather-condition {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .weather-detail {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .snow-alert {
+            background: rgba(255,255,255,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .forecast {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .forecast-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 100px 5%;
+            background: white;
+        }
+        
+        .section.dark {
+            background: #f5f5f5;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--mountain-blue);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: #666;
+        }
+        
+        /* Card Design */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--pine-green);
+        }
+        
+        .card-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+        
+        .price span {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: normal;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        
+        .rating {
+            color: #f39c12;
+            margin: 10px 0;
+        }
+        
+        /* Food Card */
+        .food-card {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+        }
+        
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .food-img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .food-content {
+            padding: 25px;
+            flex: 1;
+        }
+        
+        .food-content h3 {
+            color: var(--sunset-orange);
+            margin-bottom: 10px;
+        }
+        
+        .restaurant {
+            font-weight: 600;
+            color: var(--pine-green);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Attractions Section */
+        .attractions {
+            background: linear-gradient(135deg, var(--mountain-blue), var(--pine-green));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .attractions::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+        }
+        
+        .attraction-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Photo Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+        
+        /* Travel Tips */
+        .tips-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tip-item {
+            background: white;
+            border-left: 4px solid var(--mountain-blue);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Map Section */
+        .map-container {
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            z-index: 10;
+        }
+        
+        /* Adventure Highlight */
+        .adventure-highlight {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1593692909680-61b48c04b88e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 100px 5%;
+            color: white;
+            text-align: center;
+        }
+        
+        .adventure-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .adventure-content h2 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+        
+        .adventure-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-logo span {
+            color: var(--mountain-blue);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--mountain-blue);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--mountain-blue);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--mountain-blue);
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--mountain-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: #3a75d8;
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.8rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section {
+                padding: 80px 5%;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .food-card {
+                flex-direction: column;
+            }
+            
+            .food-img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.9);
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .map-overlay {
+                max-width: 100%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 0;
+            }
+            
+            .adventure-content h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 5%;
+            }
+            
+            .card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .weather-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Travel<span>X</span></a>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#" class="active">Destinations</a>
+            <a href="#">Tours</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover <span>Manali</span></h1>
+            <p>Gateway to the Himalayas - where adventure meets serenity</p>
+            <a href="#attractions" class="cta-button">Explore Manali</a>
+        </div>
+    </section>
+    
+    <!-- Weather Section -->
+    <section class="weather-section">
+        <h2>Current Weather in Manali</h2>
+        <div class="weather-container">
+            <div class="current-weather">
+                <div class="weather-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <div class="temp">8°C</div>
+                <div class="weather-condition">Partly Cloudy</div>
+                <div class="real-feel">RealFeel® 6°</div>
+                
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <i class="fas fa-wind"></i>
+                        <p>Wind: NNW 8 km/h</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-tint"></i>
+                        <p>Humidity: 65%</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-sun"></i>
+                        <p>UV Index: 4 Moderate</p>
+                    </div>
+                    <div class="weather-detail">
+                        <i class="fas fa-eye"></i>
+                        <p>Visibility: 15 km</p>
+                    </div>
+                </div>
+                
+                <div class="snow-alert">
+                    <h3><i class="fas fa-mountain"></i> Snow Report</h3>
+                    <p>Rohtang Pass: 120cm | Solang Valley: 80cm | Gulaba: 100cm</p>
+                </div>
+            </div>
+            
+            <div class="current-weather">
+                <h3>Today's Forecast</h3>
+                <div class="forecast">
+                    <div class="forecast-item">
+                        <h4>Day</h4>
+                        <div class="temp">12°C</div>
+                        <p>Sunny spells</p>
+                        <p>Low humidity</p>
+                    </div>
+                    <div class="forecast-item">
+                        <h4>Night</h4>
+                        <div class="temp">3°C</div>
+                        <p>Clear skies</p>
+                        <p>Chilly winds</p>
+                    </div>
+                </div>
+                
+                <div class="travel-tip" style="margin-top: 30px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <h3><i class="fas fa-thermometer-half"></i> Travel Advisory</h3>
+                    <p>Carry warm clothing. Snowfall expected in higher altitudes this weekend.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Introduction Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Himalayan Paradise</h2>
+                <p>Nestled in the mountains of Himachal Pradesh, Manali is a year-round destination offering breathtaking landscapes and thrilling adventures.</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Natural Beauty</h3>
+                        <p>Manali is surrounded by snow-capped peaks, lush green valleys, apple orchards, and gushing rivers, creating a picture-perfect setting.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Adventure Hub</h3>
+                        <p>From skiing and snowboarding in winter to paragliding, rafting, and trekking in summer, Manali offers endless adventure opportunities.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Cultural Heritage</h3>
+                        <p>Explore ancient temples, traditional Himachali architecture, and experience the warm hospitality of the local people.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Top Attractions -->
+    <section id="attractions" class="section attractions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Must-Visit Places</h2>
+                <p>Discover the natural and cultural wonders of Manali</p>
+            </div>
+            
+            <div class="grid">
+                <div class="attraction-card">
+                    <h3>Rohtang Pass</h3>
+                    <p>At 3,978 meters, this high mountain pass offers stunning views of glaciers, peaks, and valleys. A paradise for snow activities in winter.</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        4.9 (18,500+ reviews)
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <h3>Solang Valley</h3>
+                    <p>Adventure sports hub offering paragliding, zorbing, skiing, and cable car rides with spectacular mountain views.</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        4.7 (15,200+ reviews)
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <h3>Hadimba Temple</h3>
+                    <p>A unique wooden temple dedicated to Hidimba Devi, surrounded by cedar forests. Built in 1553 with intricate carvings.</p>
+                    <div class="rating" style="color: #f39c12; margin: 15px 0;">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        4.5 (12,800+ reviews)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Adventure Highlight -->
+    <section class="adventure-highlight">
+        <div class="adventure-content">
+            <h2>Experience Adventure in Manali</h2>
+            <p>From skiing on snow-clad slopes to paragliding over lush valleys, Manali offers thrilling experiences for every adventure enthusiast.</p>
+            <p>Explore our adventure packages tailored for different seasons and skill levels.</p>
+            <a href="#" class="cta-button">Book Adventure Tours</a>
+        </div>
+    </section>
+    
+    <!-- Photo Gallery -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Manali in Pictures</h2>
+                <p>Capturing the breathtaking beauty of the Himalayas</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95a9787a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Manali Valley">
+                    <div class="caption">Panoramic view of Manali Valley</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1593692909680-61b48c04b88e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Solang Valley">
+                    <div class="caption">Paragliding in Solang Valley</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1587132137056-4c5ba5ba6d37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Rohtang Pass">
+                    <div class="caption">Snow at Rohtang Pass</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1622519407650-3df9883f76a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hadimba Temple">
+                    <div class="caption">Ancient Hadimba Temple</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1598439210625-5067c578f3f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beas River">
+                    <div class="caption">Beas River flowing through Manali</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1567963698420-8c6a3f6b2a5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Apple Orchards">
+                    <div class="caption">Apple Orchards of Manali</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Accommodation Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Accommodations</h2>
+                <p>Stay amidst nature with stunning mountain views</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="The Himalayan Resort" class="card-img">
+                    <div class="card-content">
+                        <h3>The Himalayan Resort</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            2 km from Mall Road
+                        </div>
+                        <p>Luxury resort with panoramic mountain views, spa, and indoor pool. Offers guided treks and adventure activities.</p>
+                        <div class="price">$85<span> $120</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (4,275 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Snow Valley Cottages" class="card-img">
+                    <div class="card-content">
+                        <h3>Snow Valley Cottages</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Old Manali
+                        </div>
+                        <p>Traditional wooden cottages with modern amenities. Surrounded by apple orchards with views of snow-capped peaks.</p>
+                        <div class="price">$55<span> $75</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (3,128 Ratings)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pine Forest Lodge" class="card-img">
+                    <div class="card-content">
+                        <h3>Pine Forest Lodge</h3>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Near Hadimba Temple
+                        </div>
+                        <p>Budget-friendly accommodation nestled in a pine forest. Features bonfire nights and mountain-view balconies.</p>
+                        <div class="price">$35<span> $50</span></div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            (2,638 Ratings)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Food Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Manali's Famous Food</h2>
+                <p>Delicious Himalayan cuisine to warm your soul</p>
+            </div>
+            
+            <div class="food-list">
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Siddu" class="food-img">
+                    <div class="food-content">
+                        <h3>Siddu</h3>
+                        <p>Traditional Himachali steamed bread stuffed with walnuts or poppy seeds, served with ghee and lentil curry.</p>
+                        <span class="restaurant">Himachali Rasoi</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Near Mall Road
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1643275595391-9c8f4b9f0f3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Trout Fish" class="food-img">
+                    <div class="food-content">
+                        <h3>Trout Fish</h3>
+                        <p>Fresh river trout marinated in local spices and grilled to perfection. A Manali specialty you must try.</p>
+                        <span class="restaurant">Johnson's Cafe</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Old Manali
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Aktori" class="food-img">
+                    <div class="food-content">
+                        <h3>Aktori</h3>
+                        <p>Buckwheat pancakes served with local honey or savory chutneys. A traditional Pahari dish.</p>
+                        <span class="restaurant">Dylan's Toasted & Roasted</span>
+                        <div class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Circuit House Road
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Travel Tips -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Travel Tips</h2>
+                <p>Make the most of your Himalayan adventure</p>
+            </div>
+            
+            <div class="tips-container">
+                <div class="tip-item">
+                    <h3>Best Time to Visit</h3>
+                    <p>March-June: Pleasant weather (10°C-25°C), ideal for adventure sports and sightseeing.<br>
+                    October-February: For snowfall and winter sports (temperatures can drop to -7°C).<br>
+                    July-September: Monsoon season with landslides - travel with caution.</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Getting There</h3>
+                    <p>Air: Kullu-Manali Airport (KUU) 50km from Manali<br>
+                    Road: Well-connected by road from Delhi (540km), Chandigarh (310km)<br>
+                    Train: Nearest major station is Chandigarh (310km)</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Adventure Activities</h3>
+                    <p>Winter: Skiing, snowboarding, snowmobiling at Solang and Rohtang<br>
+                    Summer: Paragliding, river rafting, zorbing, trekking<br>
+                    Year-round: Mountain biking, camping, rock climbing</p>
+                </div>
+                
+                <div class="tip-item">
+                    <h3>Essential Packing</h3>
+                    <p>Warm clothing (even in summer), comfortable trekking shoes, sunscreen, sunglasses, medicines for altitude sickness, power bank (for remote areas).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="section dark">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Manali</h2>
+                <p>Key locations in and around Manali</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 100%; background: #e9ecef; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 5rem; color: #666; margin-bottom: 20px;"></i>
+                        <h3>Interactive Manali Map</h3>
+                        <p>Key locations marked for your adventure</p>
+                    </div>
+                </div>
+                <div class="map-overlay">
+                    <h3>Key Locations:</h3>
+                    <ul>
+                        <li>Mall Road</li>
+                        <li>Old Manali</li>
+                        <li>Solang Valley</li>
+                        <li>Rohtang Pass</li>
+                        <li>Hadimba Temple</li>
+                        <li>Vashisht Hot Springs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Travel<span>X</span></div>
+                    <p>Creating unforgettable mountain adventures since 2010. Our team helps you discover the majestic beauty of the Himalayas.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Destinations</a></li>
+                        <li><a href="#">Tours</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Mountain Destinations</h3>
+                    <ul>
+                        <li><a href="#">Manali</a></li>
+                        <li><a href="#">Shimla</a></li>
+                        <li><a href="#">Darjeeling</a></li>
+                        <li><a href="#">Mussoorie</a></li>
+                        <li><a href="#">Nainital</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Mountain Street, Manali</li>
+                        <li><i class="fas fa-phone"></i> +91 987 654 3210</li>
+                        <li><i class="fas fa-envelope"></i> info@travelx.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Travel X. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for mountain lovers
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Card hover effect
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const { width, height } = card.getBoundingClientRect();
+                const xRotation = 5 * ((y - height / 2) / height);
+                const yRotation = -5 * ((x - width / 2) / width);
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+        
+        // Back to top functionality
+        document.querySelector('.back-to-top').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card');
+            
+            elements.forEach(el => {
+                const elementPosition = el.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.card, .attraction-card, .gallery-item, .tip-item, .food-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        });
+        
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
